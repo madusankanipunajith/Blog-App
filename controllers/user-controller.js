@@ -1,5 +1,6 @@
 import User from "../model/User";
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 // HTTP requests are always asynchronus task. therefore we have to use async functions
 // next : Allow to move onto the next available middleware
@@ -18,7 +19,7 @@ export const getAllUsers = async(req, res, next)=>{
 }
 
 export const signUp = async(req, res, next)=>{
-    const {name, email, password} = req.body; // ES6
+    const {name, email, password, isAdmin} = req.body; // ES6
 
     let existingUser;
     try {
@@ -35,6 +36,7 @@ export const signUp = async(req, res, next)=>{
         name,
         email,
         password: hashedPassword,
+        isAdmin,
         blogs: []
     });
 
@@ -63,5 +65,12 @@ export const login = async(req, res, next) =>{
     if (!isPasswordCorrect){
         return res.status(400).json({message: "Incorrect password"});
     }
-    return res.status(200).json({message: "Login successfull"});
+
+    const accessToken = jwt.sign({id: existingUser.email, isAdmin: existingUser.isAdmin}, '#123#890#')
+    return res.status(200).json({message: "Login successfull", accessToken});
+}
+
+
+export const deleteUser = async(req, res, next)=>{
+    
 }

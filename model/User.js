@@ -17,6 +17,10 @@ const userSchema = new Schema({
         required: true,
         minlength: 6
     },
+    isAdmin:{
+        type: Boolean,
+        required: true
+    },
     blogs: [{type: mongoose.Types.ObjectId, ref: "Blog", required: true}]
 });
 

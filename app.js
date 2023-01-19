@@ -15,6 +15,6 @@ app.use("/api", (req, res, next)=>{
 
 
 mongoose.set("strictQuery", false);
-mongoose.connect('mongodb+srv://<user>:<password>@cluster0.xqi8mha.mongodb.net/BlogApp?retryWrites=true&w=majority'
+mongoose.connect('mongodb+srv://admin:zIT7nrsBd8JMDCYM@cluster0.xqi8mha.mongodb.net/BlogApp?retryWrites=true&w=majority'
 ).then(()=>app.listen(5000)).then(()=>console.log('Connceted to the DB and Listening')).catch((err)=> console.log(err));
 
